@@ -1,7 +1,7 @@
 (ns ohce.unit-tests.ohce-test
   (:require
     [midje.sweet :refer :all]
-    [ohce.core :refer :all]
+    [ohce.ohce :refer :all]
     [ohce.test-helpers :as test-helpers]))
 
 (unfinished select-greeting)

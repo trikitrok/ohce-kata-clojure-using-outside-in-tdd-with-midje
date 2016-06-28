@@ -1,6 +1,6 @@
 (ns ohce.acceptance-test
   (:require [midje.sweet :refer :all]
-            [ohce.core :refer :all]
+            [ohce.ohce :refer :all]
             [ohce.day-period-greeter :refer [select-greeting]]
             [ohce.notifications :refer [console-notifier]]
             [ohce.test-helpers :as test-helpers]))
