@@ -1,25 +1,29 @@
 (ns ohce.acceptance-test
   (:require [midje.sweet :refer :all]
-            [ohce.core :refer :all]))
+            [ohce.core :refer :all]
+            [ohce.day-period-greeter :refer [select-greeting]]
+            [ohce.notifications :refer [console-notifier]]))
 
-(unfinished hour-fn)
 (unfinished read-input)
+(unfinished hour-fn)
 
-(future-facts
+(facts
   "about running ohce"
 
   (fact
     "during the morning"
 
-    (clojure.string/split
-      (with-out-str
-        (ohce hour-fn read-input "Pedro"))
-      #"\n") => ["¡Buenos días Pedro!"
-                 "aloh"
-                 "oto"
-                 "¡Bonita palabra!"
-                 "pots"
-                 "Adios Pedro"]
-    (provided
-      (hour-fn) => 8
-      (read-input) =streams=> ["hola" "oto" "stop" "Stop!"])))
+    (let [notifier (console-notifier {:bye-word "Adios" :celebration "¡Bonita palabra!"})
+          select-greeting (fn [name] (select-greeting hour-fn name))]
+      (clojure.string/split
+        (with-out-str
+          (ohce select-greeting notifier read-input "Pedro"))
+        #"\n") => ["¡Buenos días Pedro!"
+                   "aloh"
+                   "oto"
+                   "¡Bonita palabra!"
+                   "pots"
+                   "Adios Pedro"]
+      (provided
+        (hour-fn) => 8
+        (read-input) =streams=> ["hola" "oto" "stop" "Stop!"]))))
