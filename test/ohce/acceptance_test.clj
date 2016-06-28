@@ -42,4 +42,20 @@
       (provided
         (hour-fn) => 16
         (read-input) =streams=> ["pipo" "Stop!"])))
+
+  (fact
+    "during the afternoon"
+
+    (let [notifier (console-notifier {:bye-word "Adios" :celebration "¡Bonita palabra!"})
+          select-greeting (fn [name] (select-greeting hour-fn name))]
+      (clojure.string/split
+        (with-out-str
+          (ohce select-greeting notifier read-input "Juan"))
+        #"\n") => ["¡Buenas noches Juan!"
+                   "oko"
+                   "¡Bonita palabra!"
+                   "Adios Juan"]
+      (provided
+        (hour-fn) => 1
+        (read-input) =streams=> ["oko" "Stop!"])))
   )
