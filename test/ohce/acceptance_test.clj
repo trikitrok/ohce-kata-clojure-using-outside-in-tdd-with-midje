@@ -13,11 +13,11 @@
   (fact
     "during the morning"
 
-    (let [notifier (console-notifier {:bye-word "Adios" :celebration "¡Bonita palabra!"})
+    (let [any-hour-during-morning 9
+          notifier (console-notifier {:bye-word "Adios" :celebration "¡Bonita palabra!"})
           select-greeting (fn [name] (select-greeting hour-fn name))]
       (clojure.string/split
-        (with-out-str
-          (ohce select-greeting notifier read-input "Pedro"))
+        (with-out-str (ohce select-greeting notifier read-input "Pedro"))
         #"\n") => ["¡Buenos días Pedro!"
                    "aloh"
                    "oto"
@@ -25,37 +25,36 @@
                    "pots"
                    "Adios Pedro"]
       (provided
-        (hour-fn) => 8
+        (hour-fn) => any-hour-during-morning
         (read-input) =streams=> ["hola" "oto" "stop" "Stop!"])))
 
   (fact
     "during the afternoon"
 
-    (let [notifier (console-notifier {:bye-word "Adios" :celebration "¡Bonita palabra!"})
+    (let [any-hour-during-afternoon 16
+          notifier (console-notifier {:bye-word "Adios" :celebration "¡Bonita palabra!"})
           select-greeting (fn [name] (select-greeting hour-fn name))]
       (clojure.string/split
-        (with-out-str
-          (ohce select-greeting notifier read-input "Lolo"))
+        (with-out-str (ohce select-greeting notifier read-input "Lolo"))
         #"\n") => ["¡Buenas tardes Lolo!"
                    "opip"
                    "Adios Lolo"]
       (provided
-        (hour-fn) => 16
+        (hour-fn) => any-hour-during-afternoon
         (read-input) =streams=> ["pipo" "Stop!"])))
 
   (fact
     "during the afternoon"
 
-    (let [notifier (console-notifier {:bye-word "Adios" :celebration "¡Bonita palabra!"})
+    (let [any-hour-during-night 1
+          notifier (console-notifier {:bye-word "Adios" :celebration "¡Bonita palabra!"})
           select-greeting (fn [name] (select-greeting hour-fn name))]
       (clojure.string/split
-        (with-out-str
-          (ohce select-greeting notifier read-input "Juan"))
+        (with-out-str (ohce select-greeting notifier read-input "Juan"))
         #"\n") => ["¡Buenas noches Juan!"
                    "oko"
                    "¡Bonita palabra!"
                    "Adios Juan"]
       (provided
-        (hour-fn) => 1
-        (read-input) =streams=> ["oko" "Stop!"])))
-  )
+        (hour-fn) => any-hour-during-night
+        (read-input) =streams=> ["oko" "Stop!"]))))
