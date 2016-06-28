@@ -6,7 +6,6 @@
 (unfinished hour-fn)
 
 (facts
-
   "about hour greeter"
 
   (fact
