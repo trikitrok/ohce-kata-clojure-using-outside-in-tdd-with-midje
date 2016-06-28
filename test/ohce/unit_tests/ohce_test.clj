@@ -4,17 +4,21 @@
     [ohce.core :refer :all]
     [ohce.notifications :as notifications]))
 
+(defn- register-call [func-keyword an-atom & args]
+  (let [calls (func-keyword @an-atom)]
+    (swap! an-atom assoc func-keyword (conj calls args))))
+
+(defn- params-call
+  [func-keyword atom-keyword protocol-implementation]
+  (func-keyword @(atom-keyword protocol-implementation)))
+
 (defrecord FakeNotifier [notifications]
   notifications/Notifier
   (greet [_ greeting]
-    (let [calls (:greet @notifications)]
-      (swap! notifications
-             assoc :greet (conj calls greeting))))
+    (register-call :greet notifications greeting))
 
   (echo [_ reversed-phrase]
-    (let [calls (:echo @notifications)]
-      (swap! notifications
-             assoc :echo (conj calls reversed-phrase)))))
+    (register-call :echo notifications reversed-phrase)))
 
 (defn fake-notifier []
   (->FakeNotifier (atom {})))
@@ -35,7 +39,7 @@
         (read-input) => ""
         (select-greeting ...username...) => ...greeting...)
 
-      (:greet @(:notifications notifier)) => [...greeting...]))
+      (params-call :greet :notifications notifier) => [[...greeting...]]))
 
   (fact
     "it reverses the user input"
@@ -48,7 +52,7 @@
         (select-greeting ...username...) => irrelevant
         (read-input) => "hola")
 
-      (:echo @(:notifications notifier)) => ["aloh"]))
+      (params-call :echo :notifications notifier) => [["aloh"]]))
 
   (fact
     "it reverses the user input if it's not black"
@@ -61,5 +65,5 @@
         (select-greeting ...username...) => irrelevant
         (read-input) => "")
 
-      (:echo @(:notifications notifier)) => nil))
+      (params-call :echo :notifications notifier) => nil))
   )
