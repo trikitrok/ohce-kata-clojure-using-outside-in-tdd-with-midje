@@ -14,19 +14,20 @@
   ([select-greeting notifier read-input name]
    (notifications/greet notifier (select-greeting name))
 
-   (let [input (read-input)]
-     (when (not (clojure.string/blank? input))
-       (do
-         (notifications/echo notifier (reverse-str input))
-         (when (palindrome? input)
-           (notifications/palindromes-rock notifier))
-         )))
+   (loop [input (read-input)]
+     (if (= input "Stop!")
+       (notifications/bye-user notifier name)
 
-   (let [input (read-input)]
-     (when (not (clojure.string/blank? input))
-       (do
-         (notifications/echo notifier (reverse-str input))
-         (when (palindrome? input)
-           (notifications/palindromes-rock notifier))
-         )))
+       (when (not (clojure.string/blank? input))
+         (do
+           (notifications/echo notifier (reverse-str input))
+           (when (palindrome? input)
+             (notifications/palindromes-rock notifier))
+           (recur (read-input))))
+       )
+
+
+     )
+
+
     ))

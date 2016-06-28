@@ -22,7 +22,10 @@
     (register-call :echo notifications reversed-phrase))
 
   (palindromes-rock [_]
-    (register-call :palindromes-rock notifications)))
+    (register-call :palindromes-rock notifications))
+
+  (bye-user [_ name]
+    (register-call :bye-user notifications name)))
 
 (defn fake-notifier []
   (->FakeNotifier (atom {})))
@@ -40,13 +43,13 @@
 
       (ohce select-greeting notifier read-input ...username...) => irrelevant
       (provided
-        (read-input) => ""
+        (read-input) => "Stop!"
         (select-greeting ...username...) => ...greeting...)
 
       (args-of-call :greet :notifications notifier) => [[...greeting...]]))
 
   (fact
-    "it reverses the user input"
+    "it reverses the user inputs"
 
     (let [notifier (fake-notifier)]
 
@@ -54,12 +57,12 @@
 
       (provided
         (select-greeting ...username...) => irrelevant
-        (read-input) =streams=> ["hola" "lolo"])
+        (read-input) =streams=> ["hola" "lolo" "Stop!"])
 
       (args-of-call :echo :notifications notifier) => [["aloh"] ["olol"]]))
 
   (fact
-    "it reverses the user input if it's not blank"
+    "it reverses the user inputs that are not blank"
 
     (let [notifier (fake-notifier)]
 
@@ -67,7 +70,7 @@
 
       (provided
         (select-greeting ...username...) => irrelevant
-        (read-input) => "")
+        (read-input) =streams=> ["" "Stop!"])
 
       (args-of-call :echo :notifications notifier) => nil))
 
@@ -80,9 +83,20 @@
 
       (provided
         (select-greeting ...username...) => irrelevant
-        (read-input) =streams=> ["oto" "ana"])
+        (read-input) =streams=> ["oto" "ana" "Stop!"])
 
       (args-of-call :echo :notifications notifier) => [["oto"] ["ana"]]
       (args-of-call :palindromes-rock :notifications notifier) => [:no-args :no-args]))
 
-  )
+  (fact
+    "it knows when to stop"
+
+    (let [notifier (fake-notifier)]
+
+      (ohce select-greeting notifier read-input ...username...) => irrelevant
+
+      (provided
+        (select-greeting ...username...) => irrelevant
+        (read-input) =streams=> ["Stop!"])
+
+      (args-of-call :bye-user :notifications notifier) => [[...username...]])))
