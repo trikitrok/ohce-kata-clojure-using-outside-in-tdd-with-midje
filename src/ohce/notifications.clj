@@ -2,4 +2,6 @@
 
 (defprotocol Notifier
   (greet [this greeting])
-  (echo [this reversed-phrase]))
+  (echo [this reversed-phrase])
+  (palindromes-rock [this])
+  )

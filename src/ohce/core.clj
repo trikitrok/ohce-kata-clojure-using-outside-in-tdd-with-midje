@@ -10,4 +10,9 @@
 
     (let [input (read-input)]
       (when (not (clojure.string/blank? input))
-        (notifications/echo notifier (apply str (reverse input)))))))
+        (do
+          (notifications/echo notifier (apply str (reverse input)))
+          (when (= input (apply str (reverse input)))
+            (notifications/palindromes-rock notifier))
+          ))
+      )))

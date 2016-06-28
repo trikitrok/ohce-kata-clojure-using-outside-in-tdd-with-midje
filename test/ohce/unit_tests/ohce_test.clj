@@ -5,10 +5,11 @@
     [ohce.notifications :as notifications]))
 
 (defn- register-call [func-keyword an-atom & args]
-  (let [calls (func-keyword @an-atom)]
+  (let [args (if (nil? args) :no-args args)
+        calls (func-keyword @an-atom)]
     (swap! an-atom assoc func-keyword (conj calls args))))
 
-(defn- params-call
+(defn- args-of-call
   [func-keyword atom-keyword protocol-implementation]
   (func-keyword @(atom-keyword protocol-implementation)))
 
@@ -18,7 +19,10 @@
     (register-call :greet notifications greeting))
 
   (echo [_ reversed-phrase]
-    (register-call :echo notifications reversed-phrase)))
+    (register-call :echo notifications reversed-phrase))
+
+  (palindromes-rock [_]
+    (register-call :palindromes-rock notifications)))
 
 (defn fake-notifier []
   (->FakeNotifier (atom {})))
@@ -39,7 +43,7 @@
         (read-input) => ""
         (select-greeting ...username...) => ...greeting...)
 
-      (params-call :greet :notifications notifier) => [[...greeting...]]))
+      (args-of-call :greet :notifications notifier) => [[...greeting...]]))
 
   (fact
     "it reverses the user input"
@@ -52,7 +56,7 @@
         (select-greeting ...username...) => irrelevant
         (read-input) => "hola")
 
-      (params-call :echo :notifications notifier) => [["aloh"]]))
+      (args-of-call :echo :notifications notifier) => [["aloh"]]))
 
   (fact
     "it reverses the user input if it's not black"
@@ -65,5 +69,19 @@
         (select-greeting ...username...) => irrelevant
         (read-input) => "")
 
-      (params-call :echo :notifications notifier) => nil))
+      (args-of-call :echo :notifications notifier) => nil))
+
+  (fact
+    "it identifies palindromes"
+
+    (let [notifier (fake-notifier)]
+
+      (ohce select-greeting notifier read-input ...username...) => irrelevant
+
+      (provided
+        (select-greeting ...username...) => irrelevant
+        (read-input) => "oto")
+
+      (args-of-call :echo :notifications notifier) => [["oto"]]
+      (args-of-call :palindromes-rock :notifications notifier) => [:no-args]))
   )
