@@ -21,4 +21,16 @@
     (select-greeting hour-fn "Koko") => "¡Buenos días Koko!"
     (provided (hour-fn) => 11))
 
+  (fact
+    "during the afternoon"
+
+    (select-greeting hour-fn "Koko") => "¡Buenas tardes Koko!"
+    (provided (hour-fn) => 12)
+
+    (select-greeting hour-fn "Koko") => "¡Buenas tardes Koko!"
+    (provided (hour-fn) => 16)
+
+    (select-greeting hour-fn "Koko") => "¡Buenas tardes Koko!"
+    (provided (hour-fn) => 19))
+
   )
