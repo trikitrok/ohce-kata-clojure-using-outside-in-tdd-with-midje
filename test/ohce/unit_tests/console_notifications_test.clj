@@ -1,7 +1,7 @@
 (ns ohce.unit-tests.console-notifications-test
   (:require
     [midje.sweet :refer :all]
-    [ohce.notifications :refer [console-notifier greet bye-user echo]]))
+    [ohce.notifications :refer [console-notifier greet bye-user echo palindromes-rock]]))
 
 (facts
   "about console notifications"
@@ -27,6 +27,13 @@
       (clojure.string/split
         (with-out-str (echo notifier "moko"))
         #"\n") => ["moko"])
+
+    (fact
+      "celebrating palindromes"
+
+      (clojure.string/split
+        (with-out-str (palindromes-rock notifier))
+        #"\n") => ["¡Bonita palabra!"])
 
     ))
 

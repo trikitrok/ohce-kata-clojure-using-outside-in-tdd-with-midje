@@ -14,6 +14,9 @@
   (echo [_ reversed-phrase]
     (println reversed-phrase))
 
+  (palindromes-rock [_]
+    (println "¡Bonita palabra!"))
+
   (bye-user [_ name]
     (println (str "Adios " name))))
 
