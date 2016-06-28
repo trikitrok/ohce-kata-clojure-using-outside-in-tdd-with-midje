@@ -1,7 +1,7 @@
 (ns ohce.unit-tests.console-notifications-test
   (:require
     [midje.sweet :refer :all]
-    [ohce.notifications :refer [console-notifier greet bye-user]]))
+    [ohce.notifications :refer [console-notifier greet bye-user echo]]))
 
 (facts
   "about console notifications"
@@ -20,5 +20,13 @@
       (clojure.string/split
         (with-out-str (bye-user notifier "Juan"))
         #"\n") => ["Adios Juan"])
+
+    (fact
+      "echoing word"
+
+      (clojure.string/split
+        (with-out-str (echo notifier "moko"))
+        #"\n") => ["moko"])
+
     ))
 

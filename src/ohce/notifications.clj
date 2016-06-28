@@ -10,6 +10,10 @@
   Notifier
   (greet [_ greeting]
     (println greeting))
+
+  (echo [_ reversed-phrase]
+    (println reversed-phrase))
+
   (bye-user [_ name]
     (println (str "Adios " name))))
 
