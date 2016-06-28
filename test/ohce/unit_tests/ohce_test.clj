@@ -6,7 +6,7 @@
 
 (defn- register-call [func-keyword an-atom & args]
   (let [args (if (nil? args) :no-args args)
-        calls (func-keyword @an-atom)]
+        calls (vec (func-keyword @an-atom))]
     (swap! an-atom assoc func-keyword (conj calls args))))
 
 (defn- args-of-call
@@ -54,12 +54,12 @@
 
       (provided
         (select-greeting ...username...) => irrelevant
-        (read-input) => "hola")
+        (read-input) =streams=> ["hola" "lolo"])
 
-      (args-of-call :echo :notifications notifier) => [["aloh"]]))
+      (args-of-call :echo :notifications notifier) => [["aloh"] ["olol"]]))
 
   (fact
-    "it reverses the user input if it's not black"
+    "it reverses the user input if it's not blank"
 
     (let [notifier (fake-notifier)]
 
@@ -80,8 +80,9 @@
 
       (provided
         (select-greeting ...username...) => irrelevant
-        (read-input) => "oto")
+        (read-input) =streams=> ["oto" "ana"])
 
-      (args-of-call :echo :notifications notifier) => [["oto"]]
-      (args-of-call :palindromes-rock :notifications notifier) => [:no-args]))
+      (args-of-call :echo :notifications notifier) => [["oto"] ["ana"]]
+      (args-of-call :palindromes-rock :notifications notifier) => [:no-args :no-args]))
+
   )
