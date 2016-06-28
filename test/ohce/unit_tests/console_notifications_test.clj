@@ -1,41 +1,30 @@
 (ns ohce.unit-tests.console-notifications-test
   (:require
     [midje.sweet :refer :all]
+    [ohce.test-helpers :as test-helpers]
     [ohce.notifications :refer [console-notifier greet bye-user echo palindromes-rock]]))
 
 (facts
   "about console notifications"
 
-  (let [notifier (console-notifier
-                   {:bye-word "Adios"
-                    :celebration "¡Bonita palabra!"})]
-    (fact
-      "greeting user"
-
-      (clojure.string/split
-        (with-out-str (greet notifier "greeting"))
-        #"\n") => ["greeting"])
+  (let [notifier (console-notifier {:bye-word "Adios" :celebration "¡Bonita palabra!"})]
 
     (fact
       "greeting user"
+      (test-helpers/output-lines
+        greet notifier "greeting") => ["greeting"])
 
-      (clojure.string/split
-        (with-out-str (bye-user notifier "Juan"))
-        #"\n") => ["Adios Juan"])
+    (fact
+      "greeting user"
+      (test-helpers/output-lines
+        bye-user notifier "Juan") => ["Adios Juan"])
 
     (fact
       "echoing word"
-
-      (clojure.string/split
-        (with-out-str (echo notifier "moko"))
-        #"\n") => ["moko"])
+      (test-helpers/output-lines
+        echo notifier "moko") => ["moko"])
 
     (fact
       "celebrating palindromes"
-
-      (clojure.string/split
-        (with-out-str (palindromes-rock notifier))
-        #"\n") => ["¡Bonita palabra!"])
-
-    ))
-
+      (test-helpers/output-lines
+        palindromes-rock notifier) => ["¡Bonita palabra!"])))
