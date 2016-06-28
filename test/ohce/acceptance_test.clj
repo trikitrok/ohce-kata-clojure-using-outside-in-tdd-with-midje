@@ -14,10 +14,11 @@
   (fact
     "during the morning"
 
-    (let [any-hour-during-morning 9
+    (let [stop-word "Stop!"
+          any-hour-during-morning 9
           notifier (console-notifier {:bye-word "Adios" :celebration "¡Bonita palabra!"})
           select-greeting (fn [name] (select-greeting hour-fn name))
-          ohce (partial ohce select-greeting notifier #(read-input))]
+          ohce (partial ohce select-greeting notifier #(read-input) stop-word)]
 
       (test-helpers/output-lines
         ohce "Pedro") => ["¡Buenos días Pedro!"
@@ -33,10 +34,11 @@
   (fact
     "during the afternoon"
 
-    (let [any-hour-during-afternoon 16
+    (let [stop-word "Stop!"
+          any-hour-during-afternoon 16
           notifier (console-notifier {:bye-word "Adios" :celebration "¡Bonita palabra!"})
           select-greeting (fn [name] (select-greeting hour-fn name))
-          ohce (partial ohce select-greeting notifier #(read-input))]
+          ohce (partial ohce select-greeting notifier #(read-input) stop-word)]
 
       (test-helpers/output-lines
         ohce "Lolo") => ["¡Buenas tardes Lolo!"
@@ -49,10 +51,11 @@
   (fact
     "during the afternoon"
 
-    (let [any-hour-during-night 1
+    (let [stop-word "Stop!"
+          any-hour-during-night 1
           notifier (console-notifier {:bye-word "Adios" :celebration "¡Bonita palabra!"})
           select-greeting (fn [name] (select-greeting hour-fn name))
-          ohce (partial ohce select-greeting notifier #(read-input))]
+          ohce (partial ohce select-greeting notifier #(read-input) stop-word)]
 
       (test-helpers/output-lines
         ohce "Juan") => ["¡Buenas noches Juan!"

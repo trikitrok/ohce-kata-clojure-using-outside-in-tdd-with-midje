@@ -13,9 +13,10 @@
   (fact
     "it greets the user"
 
-    (let [notifier (test-helpers/fake-notifier)]
+    (let [notifier (test-helpers/fake-notifier)
+          stop-word "Stop!"]
 
-      (ohce select-greeting notifier read-input ...username...) => irrelevant
+      (ohce select-greeting notifier read-input stop-word ...username...) => irrelevant
       (provided
         (read-input) => "Stop!"
         (select-greeting ...username...) => ...greeting...)
@@ -26,9 +27,10 @@
   (fact
     "it reverses the user inputs"
 
-    (let [notifier (test-helpers/fake-notifier)]
+    (let [notifier (test-helpers/fake-notifier)
+          stop-word "Stop!"]
 
-      (ohce select-greeting notifier read-input ...username...) => irrelevant
+      (ohce select-greeting notifier read-input stop-word ...username...) => irrelevant
 
       (provided
         (select-greeting ...username...) => irrelevant
@@ -40,9 +42,10 @@
   (fact
     "it reverses the user inputs that are not blank"
 
-    (let [notifier (test-helpers/fake-notifier)]
+    (let [notifier (test-helpers/fake-notifier)
+          stop-word "Stop!"]
 
-      (ohce select-greeting notifier read-input ...username...) => irrelevant
+      (ohce select-greeting notifier read-input stop-word ...username...) => irrelevant
 
       (provided
         (select-greeting ...username...) => irrelevant
@@ -54,9 +57,10 @@
   (fact
     "it identifies palindromes"
 
-    (let [notifier (test-helpers/fake-notifier)]
+    (let [notifier (test-helpers/fake-notifier)
+          stop-word "Stop!"]
 
-      (ohce select-greeting notifier read-input ...username...) => irrelevant
+      (ohce select-greeting notifier read-input stop-word ...username...) => irrelevant
 
       (provided
         (select-greeting ...username...) => irrelevant
@@ -70,9 +74,10 @@
   (fact
     "it knows when to stop"
 
-    (let [notifier (test-helpers/fake-notifier)]
+    (let [notifier (test-helpers/fake-notifier)
+          stop-word "Stop!"]
 
-      (ohce select-greeting notifier read-input ...username...) => irrelevant
+      (ohce select-greeting notifier read-input stop-word ...username...) => irrelevant
 
       (provided
         (select-greeting ...username...) => irrelevant
