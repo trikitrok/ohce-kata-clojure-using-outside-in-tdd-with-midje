@@ -20,7 +20,8 @@
         (read-input) => "Stop!"
         (select-greeting ...username...) => ...greeting...)
 
-      (test-helpers/args-of-call :greet :notifications notifier) => [[...greeting...]]))
+      (test-helpers/args-of-call
+        :greet :notifications notifier) => [[...greeting...]]))
 
   (fact
     "it reverses the user inputs"
@@ -33,7 +34,8 @@
         (select-greeting ...username...) => irrelevant
         (read-input) =streams=> ["hola" "lolo" "Stop!"])
 
-      (test-helpers/args-of-call :echo :notifications notifier) => [["aloh"] ["olol"]]))
+      (test-helpers/args-of-call
+        :echo :notifications notifier) => [["aloh"] ["olol"]]))
 
   (fact
     "it reverses the user inputs that are not blank"
@@ -46,7 +48,8 @@
         (select-greeting ...username...) => irrelevant
         (read-input) =streams=> ["" "Stop!"])
 
-      (test-helpers/args-of-call :echo :notifications notifier) => nil))
+      (test-helpers/args-of-call
+        :echo :notifications notifier) => nil))
 
   (fact
     "it identifies palindromes"
@@ -59,8 +62,10 @@
         (select-greeting ...username...) => irrelevant
         (read-input) =streams=> ["oto" "ana" "Stop!"])
 
-      (test-helpers/args-of-call :echo :notifications notifier) => [["oto"] ["ana"]]
-      (test-helpers/args-of-call :palindromes-rock :notifications notifier) => [:no-args :no-args]))
+      (test-helpers/args-of-call
+        :echo :notifications notifier) => [["oto"] ["ana"]]
+      (test-helpers/args-of-call
+        :palindromes-rock :notifications notifier) => [:no-args :no-args]))
 
   (fact
     "it knows when to stop"
@@ -73,4 +78,5 @@
         (select-greeting ...username...) => irrelevant
         (read-input) =streams=> ["Stop!"])
 
-      (test-helpers/args-of-call :bye-user :notifications notifier) => [[...username...]])))
+      (test-helpers/args-of-call
+        :bye-user :notifications notifier) => [[...username...]])))
