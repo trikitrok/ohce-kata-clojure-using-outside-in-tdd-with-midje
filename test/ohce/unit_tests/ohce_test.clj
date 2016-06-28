@@ -23,13 +23,12 @@
   (fact
     "it greets the user"
 
-    (let [greeting "Buenos días Pedro"
-          notifier (fake-notifier)]
+    (let [notifier (fake-notifier)]
 
-      (ohce select-greeting notifier read-input "Pedro") => irrelevant
+      (ohce select-greeting notifier read-input ...username...) => irrelevant
       (provided
-        (select-greeting "Pedro") => greeting)
+        (select-greeting ...username...) => ...greeting...)
 
-      (:greet @(:notifications notifier)) => [greeting]))
+      (:greet @(:notifications notifier)) => [...greeting...]))
 
   )
