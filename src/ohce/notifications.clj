@@ -9,7 +9,9 @@
 (defrecord ConsoleNotifier []
   Notifier
   (greet [_ greeting]
-    (println greeting)))
+    (println greeting))
+  (bye-user [_ name]
+    (println (str "Adios " name))))
 
 (defn console-notifier []
   (->ConsoleNotifier))
