@@ -11,15 +11,17 @@
 (defn should-stop? [input]
   (= input "Stop!"))
 
-(defn ohce [select-greeting notifier read-input name]
-  (greet notifier (select-greeting name))
-
+(defn- process-inputs [notifier read-input]
   (loop [input (read-input)]
-    (if (should-stop? input)
-      (bye-user notifier name)
-      (when (not (clojure.string/blank? input))
+    (when-not (should-stop? input)
+      (when-not (clojure.string/blank? input)
         (do
           (echo notifier (reverse-str input))
           (when (palindrome? input)
             (palindromes-rock notifier))
           (recur (read-input)))))))
+
+(defn ohce [select-greeting notifier read-input name]
+  (greet notifier (select-greeting name))
+  (process-inputs notifier read-input)
+  (bye-user notifier name))
