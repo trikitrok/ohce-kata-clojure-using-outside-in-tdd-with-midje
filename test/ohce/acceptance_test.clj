@@ -15,9 +15,10 @@
 
     (let [any-hour-during-morning 9
           notifier (console-notifier {:bye-word "Adios" :celebration "¡Bonita palabra!"})
-          select-greeting (fn [name] (select-greeting hour-fn name))]
+          select-greeting (fn [name] (select-greeting hour-fn name))
+          ohce (partial ohce select-greeting notifier #(read-input))]
       (clojure.string/split
-        (with-out-str (ohce select-greeting notifier read-input "Pedro"))
+        (with-out-str (ohce "Pedro"))
         #"\n") => ["¡Buenos días Pedro!"
                    "aloh"
                    "oto"
@@ -33,9 +34,11 @@
 
     (let [any-hour-during-afternoon 16
           notifier (console-notifier {:bye-word "Adios" :celebration "¡Bonita palabra!"})
-          select-greeting (fn [name] (select-greeting hour-fn name))]
+          select-greeting (fn [name] (select-greeting hour-fn name))
+          ohce (partial ohce select-greeting notifier #(read-input))]
+
       (clojure.string/split
-        (with-out-str (ohce select-greeting notifier read-input "Lolo"))
+        (with-out-str (ohce "Lolo"))
         #"\n") => ["¡Buenas tardes Lolo!"
                    "opip"
                    "Adios Lolo"]
@@ -48,9 +51,10 @@
 
     (let [any-hour-during-night 1
           notifier (console-notifier {:bye-word "Adios" :celebration "¡Bonita palabra!"})
-          select-greeting (fn [name] (select-greeting hour-fn name))]
+          select-greeting (fn [name] (select-greeting hour-fn name))
+          ohce (partial ohce select-greeting notifier #(read-input))]
       (clojure.string/split
-        (with-out-str (ohce select-greeting notifier read-input "Juan"))
+        (with-out-str (ohce "Juan"))
         #"\n") => ["¡Buenas noches Juan!"
                    "oko"
                    "¡Bonita palabra!"
