@@ -59,9 +59,9 @@
 
       (test-helpers/output-lines
         ohce "Juan") => ["¡Buenas noches Juan!"
-                   "oko"
-                   "¡Bonita palabra!"
-                   "Adios Juan"]
+                         "oko"
+                         "¡Bonita palabra!"
+                         "Adios Juan"]
       (provided
         (hour-fn) => any-hour-during-night
         (read-input) =streams=> ["oko" "Stop!"]))))

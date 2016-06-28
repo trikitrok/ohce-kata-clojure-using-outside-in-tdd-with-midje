@@ -15,14 +15,11 @@
     (println reversed-phrase))
 
   (palindromes-rock [this]
-    (println (get-in this [:config :celebration] )))
+    (println (get-in this [:config :celebration])))
 
   (bye-user [this name]
     (println
-      (str (get-in this [:config :bye-word]) " " name) )))
+      (str (get-in this [:config :bye-word]) " " name))))
 
 (defn console-notifier [config]
   (->ConsoleNotifier config))
-
-
-
