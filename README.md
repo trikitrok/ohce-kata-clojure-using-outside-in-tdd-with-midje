@@ -1,6 +1,7 @@
 # ohce
 
-[Ohce kata](http://garajeando.blogspot.com.es/2016/05/the-ohce-kata-short-and-simple-exercise.html) in Clojure.
+[Ohce kata](http://garajeando.blogspot.com.es/2016/05/the-ohce-kata-short-and-simple-exercise.html)
+in Clojure using outside-in TDD with Midje.
 
 ## How to run the tests
 
