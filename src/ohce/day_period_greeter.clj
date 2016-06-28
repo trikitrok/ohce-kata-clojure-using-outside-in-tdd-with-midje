@@ -6,6 +6,9 @@
     (and (<= 12 hour) (< hour 20)) "Buenas tardes"
     :else "Buenas noches"))
 
+(defn- format-greeting [greeting name]
+  (str "¡" greeting " " name "!"))
+
 (defn select-greeting [hour-fn name]
-  (let [greeting (greeting (hour-fn))]
-    (str "¡" greeting " " name "!")))
+  (-> (greeting (hour-fn))
+      (format-greeting name)))
