@@ -6,7 +6,9 @@
 (facts
   "about console notifications"
 
-  (let [notifier (console-notifier)]
+  (let [notifier (console-notifier
+                   {:bye-word "Adios"
+                    :celebration "¡Bonita palabra!"})]
     (fact
       "greeting user"
 

@@ -6,7 +6,7 @@
   (palindromes-rock [this])
   (bye-user [this name]))
 
-(defrecord ConsoleNotifier []
+(defrecord ConsoleNotifier [config]
   Notifier
   (greet [_ greeting]
     (println greeting))
@@ -14,14 +14,15 @@
   (echo [_ reversed-phrase]
     (println reversed-phrase))
 
-  (palindromes-rock [_]
-    (println "¡Bonita palabra!"))
+  (palindromes-rock [this]
+    (println (get-in this [:config :celebration] )))
 
-  (bye-user [_ name]
-    (println (str "Adios " name))))
+  (bye-user [this name]
+    (println
+      (str (get-in this [:config :bye-word]) " " name) )))
 
-(defn console-notifier []
-  (->ConsoleNotifier))
+(defn console-notifier [config]
+  (->ConsoleNotifier config))
 
 
 
