@@ -2,6 +2,12 @@
 
 (defn select-greeting [hour-fn name]
   (let [hour (hour-fn)]
-    (if (and (<= 6 hour) (< hour 12))
+    (cond
+      (and (<= 6 hour) (< hour 12))
       (str "¡Buenos días " name "!")
-      (str "¡Buenas tardes " name "!"))))
+
+      (and (<= 12 hour) (< hour 20))
+      (str "¡Buenas tardes " name "!")
+
+      :else
+      (str "¡Buenas noches " name "!"))))
