@@ -6,4 +6,13 @@
   (palindromes-rock [this])
   (bye-user [this name]))
 
+(defrecord ConsoleNotifier []
+  Notifier
+  (greet [_ greeting]
+    (println greeting)))
+
+(defn console-notifier []
+  (->ConsoleNotifier))
+
+
 
