@@ -1,4 +1,5 @@
 (ns ohce.notifications)
 
 (defprotocol Notifier
-  (greet [this greeting]))
+  (greet [this greeting])
+  (echo [this reversed-phrase]))
