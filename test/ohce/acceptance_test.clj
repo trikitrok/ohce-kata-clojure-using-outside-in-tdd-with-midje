@@ -3,7 +3,7 @@
             [ohce.ohce :refer :all]
             [ohce.day-period-greeter :refer [select-greeting]]
             [ohce.notifications :refer [console-notifier]]
-            [ohce.test-helpers :as test-helpers]))
+            [ohce.test-helpers :as helpers]))
 
 (unfinished read-input)
 (unfinished hour-fn)
@@ -20,7 +20,7 @@
           select-greeting (fn [name] (select-greeting hour-fn name))
           ohce (partial ohce select-greeting notifier #(read-input) stop-word)]
 
-      (test-helpers/output-lines
+      (helpers/output-lines
         ohce "Pedro") => ["¡Buenos días Pedro!"
                           "aloh"
                           "oto"
@@ -40,7 +40,7 @@
           select-greeting (fn [name] (select-greeting hour-fn name))
           ohce (partial ohce select-greeting notifier #(read-input) stop-word)]
 
-      (test-helpers/output-lines
+      (helpers/output-lines
         ohce "Lolo") => ["¡Buenas tardes Lolo!"
                          "opip"
                          "Adios Lolo"]
@@ -57,7 +57,7 @@
           select-greeting (fn [name] (select-greeting hour-fn name))
           ohce (partial ohce select-greeting notifier #(read-input) stop-word)]
 
-      (test-helpers/output-lines
+      (helpers/output-lines
         ohce "Juan") => ["¡Buenas noches Juan!"
                          "oko"
                          "¡Bonita palabra!"
