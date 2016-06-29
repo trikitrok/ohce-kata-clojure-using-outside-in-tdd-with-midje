@@ -2,7 +2,7 @@
   (:require
     [midje.sweet :refer :all]
     [ohce.test-helpers :as test-helpers]
-    [ohce.notifications :refer [console-notifier greet bye-user echo palindromes-rock]]))
+    [ohce.notifications :refer :all]))
 
 (facts
   "about console notifications"
