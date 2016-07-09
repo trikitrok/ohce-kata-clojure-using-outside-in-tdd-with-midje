@@ -1,4 +1,4 @@
-(ns ohce.day-period-greeter)
+(ns ohce.greet-selectors)
 
 (defn- greeting [hour]
   (cond
@@ -9,6 +9,6 @@
 (defn- format-greeting [greeting name]
   (str "¡" greeting " " name "!"))
 
-(defn select-greeting [hour-fn name]
+(defn select-by-day-period [hour-fn name]
   (-> (greeting (hour-fn))
       (format-greeting name)))

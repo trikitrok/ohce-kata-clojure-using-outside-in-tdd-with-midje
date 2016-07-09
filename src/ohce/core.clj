@@ -3,10 +3,10 @@
     [ohce.ohce :refer :all]
     [ohce.clock :as clock]
     [ohce.notifications :refer [console-notifier]]
-    [ohce.day-period-greeter :as greeter]))
+    [ohce.greet-selectors :as greet-selectors]))
 
 (defn -main [& args]
-  (let [select-greeting (partial greeter/select-greeting clock/hour)
+  (let [select-greeting (partial greet-selectors/select-by-day-period clock/hour)
         notifier (console-notifier {:bye-word "Adios" :celebration "¡Bonita palabra!"})
         ohce (partial ohce select-greeting notifier read-line "Stop!")]
     (ohce (first args))))

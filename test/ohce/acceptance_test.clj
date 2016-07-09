@@ -1,14 +1,17 @@
 (ns ohce.acceptance-test
-  (:require [midje.sweet :refer :all]
-            [ohce.ohce :refer :all]
-            [ohce.day-period-greeter :refer [select-greeting]]
-            [ohce.notifications :refer [console-notifier]]
-            [ohce.test-helpers :as helpers]))
+  (:require
+    [midje.sweet :refer :all]
+    [ohce.ohce :refer :all]
+    [ohce.greet-selectors :refer [select-by-day-period]]
+    [ohce.notifications :refer [console-notifier]]
+    [ohce.test-helpers :as helpers]))
 
 (unfinished read-input)
 (unfinished hour-fn)
 
-(facts
+(let [notifications-config {:bye-word "Adios"
+                            :celebration "¡Bonita palabra!"}]
+  (facts
   "about running ohce"
 
   (fact
@@ -16,8 +19,8 @@
 
     (let [stop-word "Stop!"
           any-hour-during-morning 9
-          notifier (console-notifier {:bye-word "Adios" :celebration "¡Bonita palabra!"})
-          select-greeting (fn [name] (select-greeting hour-fn name))
+          notifier (console-notifier notifications-config)
+          select-greeting (fn [name] (select-by-day-period hour-fn name))
           ohce (partial ohce select-greeting notifier #(read-input) stop-word)]
 
       (helpers/output-lines
@@ -36,8 +39,8 @@
 
     (let [stop-word "Stop!"
           any-hour-during-afternoon 16
-          notifier (console-notifier {:bye-word "Adios" :celebration "¡Bonita palabra!"})
-          select-greeting (fn [name] (select-greeting hour-fn name))
+          notifier (console-notifier notifications-config)
+          select-greeting (fn [name] (select-by-day-period hour-fn name))
           ohce (partial ohce select-greeting notifier #(read-input) stop-word)]
 
       (helpers/output-lines
@@ -53,8 +56,8 @@
 
     (let [stop-word "Stop!"
           any-hour-during-night 1
-          notifier (console-notifier {:bye-word "Adios" :celebration "¡Bonita palabra!"})
-          select-greeting (fn [name] (select-greeting hour-fn name))
+          notifier (console-notifier notifications-config)
+          select-greeting (fn [name] (select-by-day-period hour-fn name))
           ohce (partial ohce select-greeting notifier #(read-input) stop-word)]
 
       (helpers/output-lines
@@ -64,4 +67,4 @@
                          "Adios Juan"]
       (provided
         (hour-fn) => any-hour-during-night
-        (read-input) =streams=> ["oko" "Stop!"]))))
+        (read-input) =streams=> ["oko" "Stop!"])))))
