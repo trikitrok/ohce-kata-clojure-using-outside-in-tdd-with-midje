@@ -14,12 +14,13 @@
 (defn- process-inputs [notifier read-input stop-word]
   (loop [input (read-input)]
     (when-not (should-stop? input stop-word)
-      (when-not (clojure.string/blank? input)
-        (do
-          (notifications/echo notifier (reverse-str input))
-          (when (palindrome? input)
-            (notifications/palindromes-rock notifier))
-          (recur (read-input)))))))
+      (do
+        (when-not (clojure.string/blank? input)
+          (do
+            (notifications/echo notifier (reverse-str input))
+            (when (palindrome? input)
+              (notifications/palindromes-rock notifier))))
+        (recur (read-input))))))
 
 (defn ohce [select-greeting notifier read-input stop-word name]
   (notifications/greet notifier (select-greeting name))
