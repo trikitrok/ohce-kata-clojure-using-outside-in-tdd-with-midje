@@ -40,7 +40,7 @@
         :echo :notifications notifier) => [["aloh"] ["olol"]]))
 
   (fact
-    "it reverses the user inputs that are not blank"
+    "it ignores inputs that are blank"
 
     (let [notifier (helpers/fake-notifier)
           stop-word "Stop!"]
@@ -49,10 +49,10 @@
 
       (provided
         (select-greeting ...username...) => irrelevant
-        (read-input) =streams=> ["" "Stop!"])
+        (read-input) =streams=> ["memo" "" "moko" "Stop!"])
 
       (helpers/args-of-call
-        :echo :notifications notifier) => nil))
+        :echo :notifications notifier) => [["omem"] ["okom"]]))
 
   (fact
     "it identifies palindromes"
